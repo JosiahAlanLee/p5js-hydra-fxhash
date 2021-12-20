@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>_hydra_overlay_002</title>
+	<meta charset="utf-8">
+	<!-- Compiled w/ P5LIVE, http://github.com/ffd8/p5live -->
+	<style type="text/css">
+		body{
+			margin:0;
+			overflow:hidden;
+		}
+		canvas{
+			position:fixed;
+			top:0;
+			left:0;
+			z-index:-1;
+			width:100vw;
+			height:100vh;
+			margin:0;
+		}
+	</style>
+	<script type="text/javascript">
+		// eco-mode = only render if window focused
+		window.onblur = function () {
+			noLoop();
+		};
+		window.onfocus = function () {
+			loop();
+		};
+	</script>
+<script type="text/javascript" src="./p5.min.js"></script>
+<script type="text/javascript" src="./p5.sound.min.js"></script>
+<script type="text/javascript" src="./hydra-synth.js"></script>
+<script type="text/javascript" src="./p5.pattern.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+//_hydra_overlay_002
+
+/* CUSTOM FUNCTIONS FOR P5LIVE */
+// keep fullscreen if window resized
+function windowResized() {
+	resizeCanvas(windowWidth, windowHeight);
+}
+
+// custom ease function
+function ease(iVal, oVal, eVal){
+	return oVal += (iVal - oVal) * eVal;
+}
+
+// processing compatibility
+function println(msg){
+	print(msg);
+}
+
+
+let libs = ['https://unpkg.com/hydra-synth']
+const c = document.createElement('canvas')
+c.width = window.innerWidth
+c.height = window.innerHeight
+document.body.appendChild(c)
+let hydra = new Hydra ({detectAudio: false, canvas:c})
+let pg;
+
+//hydra
+src(o0)
+.layer(src(s0))
+.blend(osc())
+.out(o0)
+render(o0)
+// / hydra - end
+
+function setup() {
+	createCanvas(windowWidth, windowHeight, WEBGL);
+	pg = createGraphics(300,300)
+	s0.init({ src:drawingContext.canvas })
+	background(0)
+}
+
+function draw() {
+	clear()
+	pg.drawingContext.drawImage(c, 0, 0, pg.width, pg.height)
+	texture(pg)
+	sphere(300)
+}
+</script>
+
+</body>
+</html>
