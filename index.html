@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>_hydra_overlay_002</title>
+	<title>basic_template</title>
 	<meta charset="utf-8">
 	<!-- Compiled w/ P5LIVE, http://github.com/ffd8/p5live -->
 	<style type="text/css">
@@ -19,14 +19,37 @@
 			margin:0;
 		}
 	</style>
-	<script type="text/javascript">
-		// eco-mode = only render if window focused
-		window.onblur = function () {
+	    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      //---- /do not edit the following code
+	  /script>
+	     <script type="text/javascript">
+		 // eco-mode = only render if window focused
+		 window.onblur = function () {
 			noLoop();
-		};
-		window.onfocus = function () {
+		 };
+		 window.onfocus = function () {
 			loop();
-		};
+		 };
 	</script>
 <script type="text/javascript" src="./p5.min.js"></script>
 <script type="text/javascript" src="./p5.sound.min.js"></script>
@@ -34,57 +57,6 @@
 <script type="text/javascript" src="./p5.pattern.js"></script>
 </head>
 <body>
-
-<script type="text/javascript">
-//_hydra_overlay_002
-
-/* CUSTOM FUNCTIONS FOR P5LIVE */
-// keep fullscreen if window resized
-function windowResized() {
-	resizeCanvas(windowWidth, windowHeight);
-}
-
-// custom ease function
-function ease(iVal, oVal, eVal){
-	return oVal += (iVal - oVal) * eVal;
-}
-
-// processing compatibility
-function println(msg){
-	print(msg);
-}
-
-
-let libs = ['https://unpkg.com/hydra-synth']
-const c = document.createElement('canvas')
-c.width = window.innerWidth
-c.height = window.innerHeight
-document.body.appendChild(c)
-let hydra = new Hydra ({detectAudio: false, canvas:c})
-let pg;
-
-//hydra
-src(o0)
-.layer(src(s0))
-.blend(osc())
-.out(o0)
-render(o0)
-// / hydra - end
-
-function setup() {
-	createCanvas(windowWidth, windowHeight, WEBGL);
-	pg = createGraphics(300,300)
-	s0.init({ src:drawingContext.canvas })
-	background(0)
-}
-
-function draw() {
-	clear()
-	pg.drawingContext.drawImage(c, 0, 0, pg.width, pg.height)
-	texture(pg)
-	sphere(300)
-}
-</script>
-
+<script src="./index.js"></script>
 </body>
 </html>
