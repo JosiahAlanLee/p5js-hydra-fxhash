@@ -58,3 +58,10 @@ function draw() {
 	plane(pg.width - 100, pg.height - 100);
 }
 
+document.addEventListener("keyup", (event) => {
+  if (event.key === "s" || event.key === "S") {
+      event.preventDefault();
+      screencap();
+  }
+})
+
